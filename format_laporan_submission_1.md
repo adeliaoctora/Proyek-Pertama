@@ -1,8 +1,8 @@
-# Laporan Proyek Machine Learning - Nama Anda
+# Laporan Proyek Machine Learning - Adelia Octora Pristisahida
 
-## Domain Proyek
+## Predictive Analytics
 
-Pada bagian ini, kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+Proyek ini dibuat dalam rangka mengerjakan tugas submission proyek pertama dari kelas belajar machine learning terapan di dicoding
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
 - Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
