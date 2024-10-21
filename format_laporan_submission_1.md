@@ -1,87 +1,89 @@
 # Laporan Proyek Machine Learning - Adelia Octora Pristisahida
 
-## Predictive Analytics
+## Predictive Analytics - Harga rumah di California
 
-Proyek ini dibuat dalam rangka mengerjakan tugas submission proyek pertama dari kelas belajar machine learning terapan di dicoding
+Proyek ini dibuat dalam rangka mengerjakan tugas submission proyek pertama dari kelas belajar machine learning terapan di dicoding. Untuk mengerjakan tugas ini, harus memilih salah satu masalah yang ingin diselesaikan. Saya memilih prediksi harga rumah.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-  
-  Format Referensi: [Judul Referensi](https://scholar.google.com/) 
+Sumber : https://www.kaggle.com/datasets/camnugent/california-housing-prices
 
 ## Business Understanding
 
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
-
 ### Problem Statements
 
-Menjelaskan pernyataan masalah latar belakang:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+Yang perlu dipahami dalam permasalahan ini adalah:
+1. Bagaimana memprediksi nilai rumah berdasarkan karakteristik rumah dan lingkungan?
+2. Bagaimana membantu pembeli dan penjual rumah menentukan harga yang wajar?
+3. Bagaimana mengelola risiko kredit hipotek dengan lebih baik bagi bank atau lembaga keuangan?
+
+Hal ini dapat membantu bank atau lembaga keuangan untuk memprediksi risiko gagal bayar kredit hipotek, sementara bagi perusahaan real estate, prediksi ini bisa meningkatkan volume penjualan.
+
+Hal-hal tersebut dapat diketahui dengan bertanya pada stakeholder, antara lain, pembeli, lembaga keuangan, dan agen real estate. Namun dalam hal ini saya menggunakan dataset yang sudah siap digunakan yang ada di kaggle
 
 ### Goals
 
 Menjelaskan tujuan dari pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+1. Membangun model machine learning untuk memprediksi nilai median rumah di suatu area berdasarkan fitur-fitur tertentu seperti lokasi, ukuran rumah, jumlah kamar, dll.
+2. Meminimalkan kesalahan prediksi harga rumah agar pembeli dan penjual mendapatkan estimasi yang lebih akurat.
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+### Solution statements
+Solusi 1: Membangun Model Regresi dengan Beberapa Algoritma (Linear Regression, Random Forest, Gradient Boosting)
+Solusi 2: Hyperparameter Tuning untuk Meningkatkan Kinerja Model (Grid Search, Random Search, atau Bayesian Optimization)
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
-
-    ### Solution statements
-    - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
-    - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
+dalam proyek ini yang digunakan adalah mengikuti contoh dari materi yang telah diberikan antara lain, K-NN, Random Forest, dan Boosting Algoritme.
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+Dalam proyek ini, data yang digunakan adalah dataset properti yang berisi berbagai informasi tentang rumah di California, Amerika Serikat. Dataset ini mencakup fitur-fitur seperti lokasi geografis (longitude dan latitude), karakteristik rumah (jumlah kamar, jumlah kamar tidur, luas rumah, dan usia bangunan), serta data demografis dan ekonomi (populasi, jumlah rumah tangga, dan pendapatan median). Selain itu, dataset ini juga mencakup harga median rumah di setiap area yang digunakan sebagai target atau label untuk prediksi.
+
+Dataset yang digunakan dalam proyek ini tersedia secara publik dan dapat diunduh dari beberapa sumber, seperti:
+California Housing Prices Dataset yang tersedia di Kaggle atau di Scikit-Learn yang menyediakan versi ringan dari dataset ini.
+Dataset ini ideal untuk proyek prediksi harga rumah karena mencakup berbagai fitur yang dapat mempengaruhi harga rumah, seperti lokasi, kondisi lingkungan, dan ekonomi lokal. Data ini juga telah digunakan dalam berbagai proyek machine learning sehingga dapat menjadi titik awal yang baik untuk eksperimen model prediksi harga rumah.
+
+Kaggle datasets : https://www.kaggle.com/datasets/camnugent/california-housing-prices
 
 Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
 
 ### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
-
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+1. longitude: Ukuran seberapa jauh ke arah barat sebuah rumah; nilai yang lebih tinggi berarti lebih jauh ke barat.
+2. latitude: Ukuran seberapa jauh ke arah utara sebuah rumah; nilai yang lebih tinggi berarti lebih jauh ke utara.
+3. housingMedianAge: Usia rata-rata sebuah rumah dalam satu blok; angka yang lebih rendah menunjukkan bangunan yang lebih baru.
+4. totalRooms: Jumlah total kamar dalam satu blok.
+5. totalBedrooms: Jumlah total kamar tidur dalam satu blok.
+6. population: Jumlah total orang yang tinggal dalam satu blok.
+7. households: Jumlah total rumah tangga, sekelompok orang yang tinggal dalam satu unit rumah, untuk satu blok.
+8. medianIncome: Pendapatan rata-rata rumah tangga dalam satu blok rumah (diukur dalam puluhan ribu Dolar AS).
+9. medianHouseValue: Nilai rata-rata rumah untuk rumah tangga dalam satu blok (diukur dalam Dolar AS).
+10. oceanProximity: Lokasi rumah terhadap kedekatannya dengan laut/samudra.
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+Teknik data preparation yang dilakukan, meliputi:
+1. Encoding fitur kategori.
+2. Reduksi dimensi dengan Principal Component Analysis (PCA).
+3. Pembagian dataset dengan fungsi train_test_split dari library sklearn.
+4. Standarisasi.
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+Pada tahap ini, model machine learning dikembangakn menggunakan tiga algoritma. Kemudian, dievaluasi performa masing-masing algoritma dan menentukan algoritma mana yang memberikan hasil prediksi terbaik. Ketiga algoritma yang digunakan, antara lain:
+1. K-Nearest Neighbor
+2. Random Forest
+3. Boosting Algorithm
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+Metrik yang digunakan pada prediksi ini adalah MSE atau Mean Squared Error yang menghitung jumlah selisih kuadrat rata-rata nilai sebenarnya dengan nilai prediksi.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+Hasil Model dengan nilai 118700:
+1. KNN:
+MSE: 77870
+Ini menunjukkan bahwa model ini memiliki kesalahan yang signifikan dalam memprediksi harga rumah.
+2. Random Forest:
+MSE: 174590
+Model ini jauh lebih baik dibandingkan Linear Regression, dengan kesalahan yang lebih kecil. Ini menunjukkan bahwa Random Forest mampu menangkap hubungan yang lebih kompleks dalam data.
+3. Boosting :
+MSE: 87506.4
+Model Boosting menunjukkan performa terbaik di antara semua model yang diuji, dengan MSE terendah. Hal ini menunjukkan bahwa Gradient Boosting sangat efektif dalam menangkap pola yang ada di dalam data.
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+Interpretasi Hasil:
+Dengan membandingkan MSE dari ketiga model, kita dapat menyimpulkan bahwa Gradient Boosting Regressor adalah model terbaik dalam hal akurasi prediksi harga rumah, diikuti oleh Random Forest Regressor dan terakhir Linear Regression.
+Perbedaan signifikan dalam nilai MSE antara Linear Regression dan model ensemble (Random Forest dan Gradient Boosting) menunjukkan bahwa model linear sederhana tidak cukup untuk menangkap kompleksitas dalam data.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
 
 **---Ini adalah bagian akhir laporan---**
-
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
-
