@@ -2,9 +2,9 @@
 
 ## Predictive Analytics - Harga rumah di California
 
-Proyek ini dibuat dalam rangka mengerjakan tugas submission proyek pertama dari kelas belajar machine learning terapan di dicoding. Untuk mengerjakan tugas ini, harus memilih salah satu masalah yang ingin diselesaikan. Saya memilih prediksi harga rumah.
+Harga properti di California, khususnya rumah, terus mengalami perubahan yang signifikan dalam beberapa dekade terakhir. Faktor-faktor seperti pertumbuhan populasi, peningkatan biaya hidup, permintaan yang tinggi terhadap properti, serta kebijakan perumahan lokal dan negara bagian, telah mendorong fluktuasi harga yang substansial. Dalam konteks bisnis, pergerakan harga properti di California sangat mempengaruhi keputusan investasi. Para pengembang, investor, dan agen properti memerlukan pemahaman mendalam tentang tren harga rumah untuk menyusun strategi bisnis yang efektif. 
 
-Sumber : https://www.kaggle.com/datasets/camnugent/california-housing-prices
+Di sisi lain, dengan semakin meningkatnya kebutuhan masyarakat akan perumahan, prediksi harga rumah menjadi alat penting bagi pemerintah dan penyusun kebijakan untuk merumuskan kebijakan perumahan yang inklusif dan berkelanjutan. Penggunaan teknologi seperti machine learning dan big data analytics untuk memprediksi harga rumah di masa depan dapat memberikan insight yang lebih akurat dan membantu pengambilan keputusan yang lebih baik. Melalui analisis prediksi harga rumah di California, kita dapat mengeksplorasi bagaimana berbagai faktor seperti lokasi geografis, ukuran properti, kondisi ekonomi lokal, tingkat pengangguran, serta kebijakan regional mempengaruhi dinamika pasar. 
 
 ## Business Understanding
 
@@ -34,56 +34,82 @@ dalam proyek ini yang digunakan adalah mengikuti contoh dari materi yang telah d
 ## Data Understanding
 Dalam proyek ini, data yang digunakan adalah dataset properti yang berisi berbagai informasi tentang rumah di California, Amerika Serikat. Dataset ini mencakup fitur-fitur seperti lokasi geografis (longitude dan latitude), karakteristik rumah (jumlah kamar, jumlah kamar tidur, luas rumah, dan usia bangunan), serta data demografis dan ekonomi (populasi, jumlah rumah tangga, dan pendapatan median). Selain itu, dataset ini juga mencakup harga median rumah di setiap area yang digunakan sebagai target atau label untuk prediksi.
 
-Dataset yang digunakan dalam proyek ini tersedia secara publik dan dapat diunduh dari beberapa sumber, seperti:
-California Housing Prices Dataset yang tersedia di Kaggle atau di Scikit-Learn yang menyediakan versi ringan dari dataset ini.
-Dataset ini ideal untuk proyek prediksi harga rumah karena mencakup berbagai fitur yang dapat mempengaruhi harga rumah, seperti lokasi, kondisi lingkungan, dan ekonomi lokal. Data ini juga telah digunakan dalam berbagai proyek machine learning sehingga dapat menjadi titik awal yang baik untuk eksperimen model prediksi harga rumah.
+Jumlah Data (Baris dan Kolom): Dataset ini terdiri dari 20.640 baris dan 10 kolom. Setiap baris mewakili sebuah distrik di California, dan kolom-kolomnya memuat berbagai informasi yang berhubungan dengan harga rumah serta kondisi distrik tersebut.
+
+Kondisi Data: Dataset ini cukup bersih dan lengkap, serta siap digunakan untuk analisis lebih lanjut. Data ini diambil dari Sensus 1990, dan mencakup informasi penting seperti lokasi geografis, jumlah kamar tidur, serta status sosio-ekonomi dari distrik-distrik yang diwakili.
 
 Kaggle datasets : https://www.kaggle.com/datasets/camnugent/california-housing-prices
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
-
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-1. longitude: Ukuran seberapa jauh ke arah barat sebuah rumah; nilai yang lebih tinggi berarti lebih jauh ke barat.
-2. latitude: Ukuran seberapa jauh ke arah utara sebuah rumah; nilai yang lebih tinggi berarti lebih jauh ke utara.
-3. housingMedianAge: Usia rata-rata sebuah rumah dalam satu blok; angka yang lebih rendah menunjukkan bangunan yang lebih baru.
-4. totalRooms: Jumlah total kamar dalam satu blok.
-5. totalBedrooms: Jumlah total kamar tidur dalam satu blok.
-6. population: Jumlah total orang yang tinggal dalam satu blok.
-7. households: Jumlah total rumah tangga, sekelompok orang yang tinggal dalam satu unit rumah, untuk satu blok.
-8. medianIncome: Pendapatan rata-rata rumah tangga dalam satu blok rumah (diukur dalam puluhan ribu Dolar AS).
-9. medianHouseValue: Nilai rata-rata rumah untuk rumah tangga dalam satu blok (diukur dalam Dolar AS).
-10. oceanProximity: Lokasi rumah terhadap kedekatannya dengan laut/samudra.
+Uraian Seluruh Fitur pada Data:
+1. longitude: Koordinat geografis (garis bujur) distrik.
+2. latitude: Koordinat geografis (garis lintang) distrik.
+3. housing_median_age: Usia rata-rata rumah di distrik tersebut.
+4. total_rooms: Jumlah total ruangan di seluruh rumah di distrik tersebut.
+5. total_bedrooms: Jumlah total kamar tidur di distrik tersebut.
+6. population: Jumlah total populasi di distrik tersebut.
+7. households: Jumlah total rumah tangga di distrik tersebut.
+8. median_income: Pendapatan median tahunan rumah tangga di distrik (dalam puluhan ribu dolar AS).
+9. median_house_value: Nilai median rumah di distrik tersebut (dalam dolar AS).
+10. ocean_proximity: Kategori yang menunjukkan kedekatan distrik dengan lautan (misalnya, "NEAR OCEAN").
 
 ## Data Preparation
-Teknik data preparation yang dilakukan, meliputi:
-1. Encoding fitur kategori.
-2. Reduksi dimensi dengan Principal Component Analysis (PCA).
-3. Pembagian dataset dengan fungsi train_test_split dari library sklearn.
-4. Standarisasi.
+Pada tahap persiapan data, dilakukan beberapa teknik untuk memastikan data siap digunakan dalam proses modelisasi. Tahapan-tahapan yang dilakukan adalah sebagai berikut:
+1. Handling Missing Values (Penanganan Nilai Hilang) dengan SimpleImputer: Fitur yang memiliki nilai hilang diatasi menggunakan teknik imputasi. Dalam hal ini, kita menggunakan SimpleImputer dari library sklearn untuk menggantikan nilai yang hilang dengan nilai rata-rata (mean) dari fitur tersebut. Ini dilakukan untuk memastikan tidak ada data yang hilang selama proses pelatihan model.
+2. Encoding Fitur Kategori: Kolom ocean_proximity yang merupakan fitur kategori diubah menjadi nilai numerik menggunakan teknik encoding, seperti One-Hot Encoding. Ini dilakukan untuk mengubah fitur kategori menjadi format yang dapat dipahami oleh model machine learning.
+3. Reduksi Dimensi dengan Principal Component Analysis (PCA): Untuk mengurangi dimensi data dan mengurangi noise, kami menggunakan Principal Component Analysis (PCA). Ini membantu dalam mengekstraksi fitur-fitur yang paling penting dari dataset, sekaligus mengurangi kompleksitas model.
+4. Pembagian Dataset dengan Fungsi train_test_split: Dataset dibagi menjadi dua bagian, yaitu training set dan test set, dengan perbandingan 80:20 menggunakan fungsi train_test_split dari library sklearn. Training set digunakan untuk melatih model, sedangkan test set digunakan untuk menguji performa model.
+5. Standarisasi (Standardization): Data yang sudah di-imputasi dan di-encode kemudian distandarisasi menggunakan StandardScaler dari library sklearn. Ini dilakukan agar fitur-fitur berada pada skala yang sama, sehingga membantu meningkatkan kinerja model machine learning.
 
 ## Modeling
-Pada tahap ini, model machine learning dikembangakn menggunakan tiga algoritma. Kemudian, dievaluasi performa masing-masing algoritma dan menentukan algoritma mana yang memberikan hasil prediksi terbaik. Ketiga algoritma yang digunakan, antara lain:
-1. K-Nearest Neighbor
-2. Random Forest
-3. Boosting Algorithm
+Pada tahap ini, dilakukan pengembangan model prediksi harga rumah menggunakan tiga algoritma machine learning yang berbeda. Setiap algoritma dioptimalkan dengan parameter tertentu untuk mencapai hasil prediksi yang maksimal. Berikut adalah penjelasan tentang tahapan kerja dari masing-masing algoritma yang digunakan:
+
+### K-Nearest Neighbors (K-NN):
+Tahapan Kerja Algoritma: Algoritma K-NN bekerja dengan mencari sejumlah tetangga terdekat (dengan K sebagai jumlah tetangga) dari data yang ingin diprediksi. Jarak antara data baru dan data di training set dihitung menggunakan metrik seperti Euclidean distance. Berdasarkan mayoritas kelas tetangga tersebut, prediksi harga rumah dilakukan.
+Parameter yang Digunakan:
+n_neighbors: Jumlah tetangga terdekat (K). Parameter ini diatur pada nilai 10.
+weights: Mengatur apakah semua tetangga memiliki pengaruh yang sama (uniform) atau bobot dihitung berdasarkan jaraknya (distance).
+
+### Random Forest:
+Tahapan Kerja Algoritma: Random Forest adalah algoritma ensemble yang bekerja dengan membangun beberapa decision trees dari subset data yang berbeda dan melakukan prediksi dengan cara menggabungkan hasil prediksi dari setiap pohon (biasanya melalui rata-rata). Setiap pohon keputusan dibangun dari fitur yang dipilih secara acak, sehingga menghasilkan model yang lebih robust.
+Parameter yang Digunakan:
+n_estimators: Jumlah pohon yang digunakan di dalam hutan. Pada model ini, nilai diatur pada 50.
+max_depth: Kedalaman maksimum dari setiap pohon. Ini menentukan kompleksitas pohon dan diatur pada 16.
+random_state: Parameter ini digunakan untuk menjaga konsistensi hasil ketika model dilatih ulang.
+
+### Boosting Algorithm (Gradient Boosting):
+Tahapan Kerja Algoritma: Gradient Boosting bekerja dengan membangun model secara berurutan, di mana setiap model baru mencoba mengoreksi kesalahan prediksi dari model sebelumnya. Algoritma ini menggunakan loss function untuk meminimalkan error, secara bertahap memperbaiki prediksi dengan menambahkan model-model baru.
+Parameter yang Digunakan:
+learning_rate: Ukuran langkah yang digunakan untuk memperbarui prediksi. Nilai kecil seperti 0.05 membantu menjaga kestabilan model.
+random_state: Parameter untuk menjaga hasil yang konsisten.
 
 ## Evaluation
-Metrik yang digunakan pada prediksi ini adalah MSE atau Mean Squared Error yang menghitung jumlah selisih kuadrat rata-rata nilai sebenarnya dengan nilai prediksi.
+Interpretasi Hasil Berdasarkan Business Understanding
+Pada bagian ini, kita tidak hanya menilai performa model berdasarkan metrik Mean Squared Error (MSE), tetapi juga mengevaluasi dampak dari model yang dikembangkan terhadap pemahaman bisnis dan apakah model tersebut berhasil menjawab problem statement dan tujuan proyek.
 
-Hasil Model dengan nilai 118700:
-1. KNN:
-MSE: 77870
-Ini menunjukkan bahwa model ini memiliki kesalahan yang signifikan dalam memprediksi harga rumah.
-2. Random Forest:
-MSE: 174590
-Model ini jauh lebih baik dibandingkan Linear Regression, dengan kesalahan yang lebih kecil. Ini menunjukkan bahwa Random Forest mampu menangkap hubungan yang lebih kompleks dalam data.
-3. Boosting :
-MSE: 87506.4
-Model Boosting menunjukkan performa terbaik di antara semua model yang diuji, dengan MSE terendah. Hal ini menunjukkan bahwa Gradient Boosting sangat efektif dalam menangkap pola yang ada di dalam data.
+Cara Kerja MSE: MSE menghitung rata-rata dari selisih kuadrat antara nilai yang diprediksi oleh model dan nilai aktual. Metrik ini sensitif terhadap outlier karena kesalahan dipangkatkan dua, yang berarti semakin besar selisih antara prediksi dan nilai sebenarnya, semakin besar kontribusi kesalahan tersebut terhadap MSE. Semakin kecil nilai MSE, semakin baik performa model dalam memprediksi nilai target.
 
-Interpretasi Hasil:
-Dengan membandingkan MSE dari ketiga model, kita dapat menyimpulkan bahwa Gradient Boosting Regressor adalah model terbaik dalam hal akurasi prediksi harga rumah, diikuti oleh Random Forest Regressor dan terakhir Linear Regression.
-Perbedaan signifikan dalam nilai MSE antara Linear Regression dan model ensemble (Random Forest dan Gradient Boosting) menunjukkan bahwa model linear sederhana tidak cukup untuk menangkap kompleksitas dalam data.
+Interpretasi: Jika nilai MSE mendekati nol, model memiliki performa yang baik, karena ini berarti kesalahan prediksi sangat kecil. MSE yang lebih tinggi menunjukkan bahwa model memiliki kesalahan prediksi yang lebih besar, yang berarti model kurang mampu menangkap pola dalam data dengan baik.
 
+MSE sering digunakan karena metrik ini mudah dihitung dan memberikan gambaran langsung tentang seberapa jauh prediksi model dari nilai sebenarnya. Namun, karena kuadrat dari kesalahan dihitung, MSE lebih sensitif terhadap kesalahan besar (outlier).
+
+Dalam konteks Business Understanding, MSE digunakan untuk menilai akurasi prediksi model terhadap harga rumah. Di proyek ini, kita tidak hanya melihat MSE untuk membandingkan performa model secara teknis, tetapi juga mengevaluasi dampaknya terhadap pengambilan keputusan bisnis. Oleh karena itu, selain mengevaluasi model secara teknis, penting untuk memastikan apakah solusi yang dihasilkan (dalam hal ini model dengan MSE terendah) memberikan dampak positif terhadap tujuan bisnis dan problem statement yang dihadapi.
+
+
+### KNN (K-Nearest Neighbors):
+MSE: 77,870
+Interpretasi Bisnis: Meskipun KNN cukup sederhana dan mudah diimplementasikan, nilai MSE yang dihasilkan menunjukkan bahwa model ini memiliki kesalahan yang signifikan dalam memprediksi harga rumah. Dalam konteks bisnis, ini berarti keputusan yang didasarkan pada prediksi dari model KNN mungkin tidak cukup akurat untuk memberikan wawasan yang dapat diandalkan. Prediksi harga rumah yang meleset akan berdampak langsung pada keputusan investasi dan strategi harga, sehingga model ini kurang cocok untuk diterapkan dalam skenario ini.
+### Random Forest:
+MSE: 174,590
+Interpretasi Bisnis: Hasil ini jauh lebih baik dibandingkan model linear sederhana (seperti yang mungkin dipertimbangkan sebelumnya), namun MSE masih relatif tinggi. Random Forest mampu menangkap hubungan yang lebih kompleks dalam data, yang penting dalam memahami dinamika pasar properti yang sering kali non-linear. Namun, nilai MSE yang cukup besar menunjukkan bahwa model ini masih perlu disempurnakan jika ingin digunakan secara efektif dalam bisnis, terutama untuk peramalan harga properti dalam investasi skala besar.
+### Boosting (Gradient Boosting):
+MSE: 87,506.4
+
+Interpretasi Bisnis: Model Boosting menunjukkan performa terbaik dengan MSE terendah, mengindikasikan bahwa model ini mampu menangkap pola dengan lebih baik dibandingkan kedua model lainnya. Dalam konteks bisnis, ini berarti prediksi harga rumah yang dihasilkan oleh Gradient Boosting bisa diandalkan untuk pengambilan keputusan strategis, seperti penetapan harga yang kompetitif atau perencanaan investasi di sektor real estate. Dengan model ini, perusahaan dapat lebih percaya diri dalam memahami nilai pasar dan peluang profitabilitas.
+
+Problem statement dalam proyek ini adalah untuk membuat prediksi harga rumah yang akurat di California, dengan tujuan membantu perusahaan real estate atau investor dalam pengambilan keputusan terkait pembelian, penjualan, atau pengembangan properti. Berdasarkan hasil evaluasi, Boosting Algorithm (Gradient Boosting) memberikan hasil prediksi yang paling akurat, sehingga berhasil menjawab problem statement dengan lebih baik dibandingkan model lain. Model ini dapat memberikan gambaran yang lebih baik tentang harga pasar rumah, yang penting bagi bisnis untuk merumuskan strategi yang lebih baik.
+
+Tujuan dari proyek ini adalah untuk mengembangkan model prediksi harga rumah yang akurat dan dapat diandalkan. Dengan MSE yang lebih rendah pada Gradient Boosting, kita dapat menyimpulkan bahwa tujuan utama dari proyek ini berhasil dicapai. Model ini cukup efisien untuk digunakan dalam pengambilan keputusan bisnis, seperti estimasi harga rumah yang lebih realistis dan akurat dalam skenario dunia nyata.
+
+Solusi yang direncanakan, yaitu menggunakan Gradient Boosting sebagai model prediksi utama, terbukti berdampak positif. Dengan tingkat akurasi yang lebih tinggi, perusahaan atau investor dapat membuat keputusan yang lebih baik terkait pembelian properti, pengaturan harga, dan evaluasi risiko. Hal ini juga akan mendukung strategi bisnis dalam jangka panjang dengan memberikan prediksi harga yang lebih dekat dengan realitas pasar, sehingga mengurangi risiko keputusan yang salah.
 
 **---Ini adalah bagian akhir laporan---**
