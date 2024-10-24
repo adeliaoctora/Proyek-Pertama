@@ -7,7 +7,6 @@ Harga properti di California, khususnya rumah, terus mengalami perubahan yang si
 Di sisi lain, dengan semakin meningkatnya kebutuhan masyarakat akan perumahan, prediksi harga rumah menjadi alat penting bagi pemerintah dan penyusun kebijakan untuk merumuskan kebijakan perumahan yang inklusif dan berkelanjutan. Penggunaan teknologi seperti machine learning dan big data analytics untuk memprediksi harga rumah di masa depan dapat memberikan insight yang lebih akurat dan membantu pengambilan keputusan yang lebih baik. Melalui analisis prediksi harga rumah di California, kita dapat mengeksplorasi bagaimana berbagai faktor seperti lokasi geografis, ukuran properti, kondisi ekonomi lokal, tingkat pengangguran, serta kebijakan regional mempengaruhi dinamika pasar. 
 
 ## Business Understanding
-
 ### Problem Statements
 
 Yang perlu dipahami dalam permasalahan ini adalah:
@@ -26,7 +25,7 @@ Menjelaskan tujuan dari pernyataan masalah:
 2. Meminimalkan kesalahan prediksi harga rumah agar pembeli dan penjual mendapatkan estimasi yang lebih akurat.
 
 ### Solution statements
-Solusi 1: Membangun Model Regresi dengan Beberapa Algoritma (Linear Regression, Random Forest, Gradient Boosting)
+Solusi 1: Membangun Model Regresi dengan Beberapa Algoritma (K-NN, Random Forest, Gradient Boosting)
 Solusi 2: Hyperparameter Tuning untuk Meningkatkan Kinerja Model (Grid Search, Random Search, atau Bayesian Optimization)
 
 dalam proyek ini yang digunakan adalah mengikuti contoh dari materi yang telah diberikan antara lain, K-NN, Random Forest, dan Boosting Algoritme.
@@ -95,16 +94,31 @@ MSE sering digunakan karena metrik ini mudah dihitung dan memberikan gambaran la
 Dalam konteks Business Understanding, MSE digunakan untuk menilai akurasi prediksi model terhadap harga rumah. Di proyek ini, kita tidak hanya melihat MSE untuk membandingkan performa model secara teknis, tetapi juga mengevaluasi dampaknya terhadap pengambilan keputusan bisnis. Oleh karena itu, selain mengevaluasi model secara teknis, penting untuk memastikan apakah solusi yang dihasilkan (dalam hal ini model dengan MSE terendah) memberikan dampak positif terhadap tujuan bisnis dan problem statement yang dihadapi.
 
 
-### KNN (K-Nearest Neighbors):
-MSE: 77,870
-Interpretasi Bisnis: Meskipun KNN cukup sederhana dan mudah diimplementasikan, nilai MSE yang dihasilkan menunjukkan bahwa model ini memiliki kesalahan yang signifikan dalam memprediksi harga rumah. Dalam konteks bisnis, ini berarti keputusan yang didasarkan pada prediksi dari model KNN mungkin tidak cukup akurat untuk memberikan wawasan yang dapat diandalkan. Prediksi harga rumah yang meleset akan berdampak langsung pada keputusan investasi dan strategi harga, sehingga model ini kurang cocok untuk diterapkan dalam skenario ini.
-### Random Forest:
-MSE: 174,590
-Interpretasi Bisnis: Hasil ini jauh lebih baik dibandingkan model linear sederhana (seperti yang mungkin dipertimbangkan sebelumnya), namun MSE masih relatif tinggi. Random Forest mampu menangkap hubungan yang lebih kompleks dalam data, yang penting dalam memahami dinamika pasar properti yang sering kali non-linear. Namun, nilai MSE yang cukup besar menunjukkan bahwa model ini masih perlu disempurnakan jika ingin digunakan secara efektif dalam bisnis, terutama untuk peramalan harga properti dalam investasi skala besar.
-### Boosting (Gradient Boosting):
-MSE: 87,506.4
+### K-Nearest Neighbors (K-NN):
+MSE pada Train Set: 2,678,887.367064
+MSE pada Test Set: 19,906,448.138128
+Interpretasi: MSE pada test set menunjukkan bahwa model K-NN memiliki kesalahan prediksi yang cukup tinggi di luar sampel pelatihan. Artinya, model ini tidak terlalu baik dalam memprediksi harga rumah, terutama pada data baru yang tidak dilihat selama pelatihan. Ini mengindikasikan bahwa K-NN mungkin mengalami overfitting, dimana model bekerja baik pada data pelatihan tetapi tidak generalisasi dengan baik pada data test.
 
-Interpretasi Bisnis: Model Boosting menunjukkan performa terbaik dengan MSE terendah, mengindikasikan bahwa model ini mampu menangkap pola dengan lebih baik dibandingkan kedua model lainnya. Dalam konteks bisnis, ini berarti prediksi harga rumah yang dihasilkan oleh Gradient Boosting bisa diandalkan untuk pengambilan keputusan strategis, seperti penetapan harga yang kompetitif atau perencanaan investasi di sektor real estate. Dengan model ini, perusahaan dapat lebih percaya diri dalam memahami nilai pasar dan peluang profitabilitas.
+### Random Forest (RF):
+MSE pada Train Set: 451,785.877382
+MSE pada Test Set: 13,039,738.115209
+Interpretasi: Random Forest memiliki MSE yang jauh lebih rendah pada train set dibandingkan K-NN, menunjukkan bahwa model ini mampu menangkap lebih banyak informasi dari data pelatihan. Namun, MSE pada test set masih cukup tinggi, meskipun lebih rendah dari K-NN. Ini menunjukkan bahwa Random Forest memiliki performa yang lebih baik daripada K-NN dalam memprediksi harga rumah pada data yang belum pernah dilihat, tetapi masih ada ruang untuk perbaikan dalam hal generalisasi.
+
+### Boosting Algorithm (Gradient Boosting):
+MSE pada Train Set: 4,085,425.297193
+MSE pada Test Set: 8,911,992.892919
+Interpretasi: Model Boosting menunjukkan performa terbaik di antara semua model dalam hal MSE pada test set. Meskipun MSE pada train set lebih tinggi dibandingkan Random Forest, model ini memiliki generalisasi yang lebih baik, sebagaimana ditunjukkan oleh MSE yang lebih rendah pada test set. Hal ini mengindikasikan bahwa Boosting mampu menangkap pola lebih baik dalam data dan lebih baik dalam menangani data baru.
+
+Analisis Perbedaan Visualisasi
+Berdasarkan hasil MSE, plot visualisasi yang sesuai dengan notebook akan menunjukkan bahwa Boosting Algorithm memiliki performa terbaik pada data test, diikuti oleh Random Forest, dan terakhir K-NN dengan MSE tertinggi.
+
+Jika visualisasi di laporan berbeda dari hasil ini, kemungkinan ada kesalahan dalam menampilkan atau interpretasi plot. Pastikan bahwa visualisasi plot yang digunakan menampilkan MSE untuk train set dan test set secara terpisah dan sesuai dengan hasil yang tercatat dalam notebook.
+
+### Kesimpulan
+Setelah dianalisis ulang, kita dapat menyimpulkan bahwa berdasarkan MSE:
+1. Boosting Algorithm memberikan prediksi yang paling akurat pada data test.
+2. Random Forest bekerja lebih baik dari K-NN tetapi masih kurang optimal dibandingkan Boosting.
+3. K-NN memiliki kesalahan yang paling besar dan mungkin mengalami overfitting.
 
 Problem statement dalam proyek ini adalah untuk membuat prediksi harga rumah yang akurat di California, dengan tujuan membantu perusahaan real estate atau investor dalam pengambilan keputusan terkait pembelian, penjualan, atau pengembangan properti. Berdasarkan hasil evaluasi, Boosting Algorithm (Gradient Boosting) memberikan hasil prediksi yang paling akurat, sehingga berhasil menjawab problem statement dengan lebih baik dibandingkan model lain. Model ini dapat memberikan gambaran yang lebih baik tentang harga pasar rumah, yang penting bagi bisnis untuk merumuskan strategi yang lebih baik.
 
@@ -112,4 +126,10 @@ Tujuan dari proyek ini adalah untuk mengembangkan model prediksi harga rumah yan
 
 Solusi yang direncanakan, yaitu menggunakan Gradient Boosting sebagai model prediksi utama, terbukti berdampak positif. Dengan tingkat akurasi yang lebih tinggi, perusahaan atau investor dapat membuat keputusan yang lebih baik terkait pembelian properti, pengaturan harga, dan evaluasi risiko. Hal ini juga akan mendukung strategi bisnis dalam jangka panjang dengan memberikan prediksi harga yang lebih dekat dengan realitas pasar, sehingga mengurangi risiko keputusan yang salah.
 
+Referensi:
+Breiman, L. (2001). Random forests. Machine learning, 45(1), 5-32.
+Friedman, J. H. (2001). Greedy Function Approximation: A Gradient Boosting Machine. Annals of Statistics, 29(5), 1189–1232.
+Tukey, J. W. (1977). Exploratory Data Analysis. Addison-Wesley.
+
 **---Ini adalah bagian akhir laporan---**
+
